@@ -5,11 +5,11 @@ def main():
     display_menu()
     while True:
         command = input('Command: ')
-        command = command.lower
+        command = command.lower()
         if command == 'create':
             create_row()
         elif command == 'read':
-            read_row()
+            read_row(conn)
         elif command == 'update':
             update_row()
         elif command == 'destroy':
@@ -34,7 +34,7 @@ def table_init():
 
 #def create_row():
 
-def read_row():
+def read_row(conn):
     name = input('Enter name of the record holder: ')
     row = conn.execute('select from records values (?)', (name))
     print(row)
