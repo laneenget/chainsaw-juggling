@@ -47,6 +47,9 @@ def update_row(conn):
     conn.execute('UPDATE records SET catches = ? WHERE firstname = ? AND lastname = ?', (catches, firstname, lastname))
     conn.commit()
 
-#def delete_row():
+def delete_row(conn):
+    firstname, lastname = input('Enter full name of the record holder: ').split()
+    conn.execute('delete from records where firstname = ? and lastname = ?', (firstname, lastname))
+    conn.commit()
 
 main()
