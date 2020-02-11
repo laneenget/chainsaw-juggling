@@ -2,7 +2,7 @@ import sqlite3
 
 def main():
     conn = sqlite3.connect('chainsaw_db.sqlite') #Create/open db file
-    conn.execute('create table if not exists records (name text, country text, catches integer)') #Add table
+    conn.execute('create table if not exists records (firstname text, lastname text, country text, catches integer)') #Add table
     display_menu() #Call display function
     while True:
         command = input('Command: ') #Take user input
@@ -31,13 +31,14 @@ def display_menu():
     print('')
 
 def create_row(conn):
-    name, country, catches = input('Enter name, country, and catches of the new record holder separated by commas. ')
-    conn.execute('insert into records values (?, ?, ?)', (name, country, catches))
+    first_name, last_name, country, catches = input('Enter first name, last name, country, and catches of the new record holder separated by spaces. ').split()
+    conn.execute('insert into records values (?, ?, ?, ?)', (first_name, last_name, country, catches))
     conn.commit
 
 def read_row(conn):
-    name = input('Enter name of the record holder: ') #Take user input
-    row = conn.execute('select from records values (?)', (name)) #Query db using input
+    first_name, last_name = input('Enter name of the record holder: ').split() #Take user input
+    cur = conn.execute('select * from records WHERE firstname = ? AND lastname = ?', (first_name, last_name)) #Query db using input
+    row = cur.fetchone()
     print(row) #Print result
 
 #def update_row():
