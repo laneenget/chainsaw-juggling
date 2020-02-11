@@ -19,7 +19,7 @@ def main():
             print('Bye!') #Quit program
             break
         else:
-            print('That is not a valid command. Please try again.')
+            print('That is not a valid command. Please try again.') #Validate
 
 def display_menu():
     print('CRUD')
@@ -31,25 +31,25 @@ def display_menu():
     print('')
 
 def create_row(conn):
-    first_name, last_name, country, catches = input('Enter first name, last name, country, and catches of the new record holder separated by spaces. ').split()
-    conn.execute('insert into records values (?, ?, ?, ?)', (first_name, last_name, country, catches))
-    conn.commit()
+    first_name, last_name, country, catches = input('Enter first name, last name, country, and catches of the new record holder separated by spaces. ').split() #Take row input
+    conn.execute('insert into records values (?, ?, ?, ?)', (first_name, last_name, country, catches)) #Query db
+    conn.commit() #Save
 
 def read_row(conn):
     first_name, last_name = input('Enter full name of the record holder: ').split() #Take user input
     cur = conn.execute('select * from records WHERE firstname = ? AND lastname = ?', (first_name, last_name)) #Query db using input
-    row = cur.fetchone()
+    row = cur.fetchone() #Put row in variable
     print(row) #Print result
 
 def update_row(conn):
-    firstname, lastname = input('Enter full name of the record holder: ').split()
+    firstname, lastname = input('Enter full name of the record holder: ').split() #Take user input
     catches = int(input('Enter the updated number of catches: '))
-    conn.execute('UPDATE records SET catches = ? WHERE firstname = ? AND lastname = ?', (catches, firstname, lastname))
-    conn.commit()
+    conn.execute('UPDATE records SET catches = ? WHERE firstname = ? AND lastname = ?', (catches, firstname, lastname)) #Query db
+    conn.commit() #Save
 
 def delete_row(conn):
-    firstname, lastname = input('Enter full name of the record holder: ').split()
-    conn.execute('delete from records where firstname = ? and lastname = ?', (firstname, lastname))
-    conn.commit()
+    firstname, lastname = input('Enter full name of the record holder: ').split() #Take input
+    conn.execute('delete from records where firstname = ? and lastname = ?', (firstname, lastname)) #Query
+    conn.commit() #Save
 
 main()
